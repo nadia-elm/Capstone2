@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-const Product = ({ image, name, price, id }) => {
+const Product = ({ image_url, name, price, id }) => {
   return (
     <Wrapper>
       <div className='container'>
-        <img src={image} alt={name} />
+        <img src={image_url} alt={name} />
         <Link to={`/products/${id}`} className='link'>
           <FaSearch />
         </Link>
@@ -21,11 +21,13 @@ const Product = ({ image, name, price, id }) => {
 const Wrapper = styled.article`
   .container {
     position: relative;
-    background: var(--clr-black);
+    /* background: var(--clr-black); */
     border-radius: var(--radius);
   }
   img {
-    width: 100%;
+    width: 90%;
+    max-width: 2000px;
+
     display: block;
     object-fit: cover;
     border-radius: var(--radius);

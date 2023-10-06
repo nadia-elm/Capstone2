@@ -2,12 +2,24 @@
 const cors = require('cors');
 const express = require('express');
 const productsRoutes = require('./routes/products');
+const path = require('path');
+require('dotenv').config();
 
 const { NotFoundError } = require('./expressError');
 
 const morgan = require('morgan');
+// const cloudinary = require('cloudinary').v2;
+
+// cloudinary.config({
+//   cloud_name: process.env.CLOUD_NAME,
+//   api_key: process.env.API_KEY,
+//   api_secret: process.env.API_SECRET,
+// });
 
 const app = express();
+
+app.use(express.static('./public'));
+// app.use('./public', express.static(path.join(__dirname, 'assets')));
 
 app.use(cors());
 app.use(express.json());

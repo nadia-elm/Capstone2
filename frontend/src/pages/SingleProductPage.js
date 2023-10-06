@@ -5,7 +5,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const url = `https://course-api.com/react-store-single-product?id=`;
+// const url = `https://course-api.com/react-store-single-product?id=`;
+const url = 'http://localhost:3001/products/';
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -37,7 +38,7 @@ const SingleProduct = () => {
 
     id: sku,
     company,
-    images,
+    image_url,
   } = product;
   return (
     <Wrapper>
@@ -47,7 +48,7 @@ const SingleProduct = () => {
           back to products
         </Link>
         <div className='product-center'>
-          <img src={images[0].url}></img>
+          <img src={image_url}></img>
           <section className='content'>
             <h2>{name}</h2>
 

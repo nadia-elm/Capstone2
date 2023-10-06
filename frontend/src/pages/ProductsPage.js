@@ -5,7 +5,7 @@ import { PageHero, Product } from '../components';
 
 const ProductsPage = ({}) => {
   const [products, setProducts] = useState([]);
-  const url = 'https://course-api.com/react-store-products';
+  const url = 'http://localhost:3001/products';
   const getProducts = async (url) => {
     try {
       const result = await axios.get(url);
@@ -30,7 +30,7 @@ const ProductsPage = ({}) => {
 
 const Wrapper = styled.section`
   img {
-    height: 175px;
+    height: 195px;
   }
 
   .products-container {
@@ -40,12 +40,12 @@ const Wrapper = styled.section`
 
   @media (min-width: 992px) {
     .products-container {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
   @media (min-width: 1170px) {
     .products-container {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 `;

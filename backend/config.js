@@ -7,7 +7,27 @@ require('colors');
 
 const SECRET_KEY = process.env.SECRET_KEY || 'secret-dev';
 
-const PORT = +process.env.PORT || 3000;
+const PORT = +process.env.PORT || 3001;
+// import { v2 as cloudinary } from 'cloudinary';
+// const cloudinary = require('cloudinary').v2;
+
+// cloudinary.config({
+//   cloud_name: 'dwp1kgrki',
+//   api_key: '163297821233471',
+//   api_secret: '6PMpVd1Z6XOK1HE4pdKgWQ1gN44',
+// });
+
+// cloudinary.config({
+//   cloud_name: 'dwp1kgrki',
+//   api_key: '163297821233471',
+//   api_secret: '6PMpVd1Z6XOK1HE4pdKgWQ1gN44',
+// });
+
+// CLOUD_NAME = 'dwp1kgrki';
+// API_KEY = '163297821233471';
+// API_SECRET = '6PMpVd1Z6XOK1HE4pdKgWQ1gN44';
+
+// CLOUDINARY_URL=cloudinary://163297821233471:6PMpVd1Z6XOK1HE4pdKgWQ1gN44@dwp1kgrki
 
 // Use dev database, testing database, or via env var, production database
 // function getDatabaseUri() {
