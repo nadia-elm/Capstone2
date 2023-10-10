@@ -2,19 +2,13 @@
 const cors = require('cors');
 const express = require('express');
 const productsRoutes = require('./routes/products');
+const usersRoutes = require('./routes/users');
 const path = require('path');
 require('dotenv').config();
 
 const { NotFoundError } = require('./expressError');
 
 const morgan = require('morgan');
-// const cloudinary = require('cloudinary').v2;
-
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.API_SECRET,
-// });
 
 const app = express();
 
@@ -26,6 +20,7 @@ app.use(express.json());
 app.use(morgan('tiny'));
 
 app.use('/products', productsRoutes);
+app.use('/users', usersRoutes);
 
 app.get('/', function (req, res) {
   return res.send('helloo');
