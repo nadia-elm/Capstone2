@@ -1,8 +1,65 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 import styled from 'styled-components';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../UserContext';
+import axios from 'axios';
+
 const Product = ({ image_url, name, price, id }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { userData, setUserData } = useContext(UserContext);
+
+  // fetch user data from token
+  const fetchUserData = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        // console.log(decodedToken);
+        const user = JSON.parse(atob(token.split('.')[1]));
+        // console.log(user);
+        setUserData({ ...user, id: decodedToken.userId });
+      } catch (error) {
+        console.log('Invalid token:', error);
+        localStorage.removeItem('token');
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  // toggle favorite
+  const toggleFavorite = async () => {
+    setIsFavorite((prev) => !prev);
+    if (!userData) {
+      console.log('not logged in');
+      return; // Return early if no user data
+    }
+
+    try {
+      const url = 'http://localhost:3001/users/favorites';
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      };
+      const data = { userId: userData.id, productId: id };
+      console.log(data);
+
+      if (isFavorite) {
+        await axios.delete(url, { headers, data });
+      } else {
+        await axios.post(url, data, { headers });
+      }
+
+      // setIsFavorite((prevIsfavorite) => !prevIsfavorite);
+    } catch (error) {
+      console.log(error);
+      setIsFavorite((prev) => !prev);
+    }
+  };
+
   return (
     <Wrapper>
       <div className='container'>
@@ -15,6 +72,13 @@ const Product = ({ image_url, name, price, id }) => {
         <h5>{name}</h5>
         <p>{price}</p>
       </footer>
+      <button className='favorite-btn' onClick={toggleFavorite}>
+        {isFavorite ? (
+          <FaHeart style={{ color: 'red' }} />
+        ) : (
+          <FaHeart style={{ color: 'grey' }} />
+        )}
+      </button>
     </Wrapper>
   );
 };
@@ -75,5 +139,15 @@ const Wrapper = styled.article`
     color: var(--clr-primary-5);
     letter-spacing: var(--spacing);
   }
+  .favorite-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    top: 1rem;
+    right: 1rem;
+    color: var(--clr-primary-5);
+    font-size: 1rem;
+  }
 `;
+
 export default Product;
